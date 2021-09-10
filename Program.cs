@@ -11,8 +11,9 @@ namespace run_hidden
         {
             using (Process p = new Process())
             {
-                p.StartInfo.UseShellExecute = false;
+                p.StartInfo.UseShellExecute = true;
                 p.StartInfo.CreateNoWindow = true;
+                p.StartInfo.Verb = "runas";
                 p.StartInfo.FileName = args[0];
 
                 args = args.Skip(1).ToArray();
@@ -23,8 +24,7 @@ namespace run_hidden
 
                 p.StartInfo.Arguments = string.Join(" ", args);
                 p.Start();
-                p.WaitForExit();
-                Environment.ExitCode = p.ExitCode;
+                Environment.ExitCode = 0;
             }
         }
     }
